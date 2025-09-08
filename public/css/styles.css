@@ -15,7 +15,7 @@ h1, h2, h3 {
 }
 
 
-.wrapper {
+#wrapper {
   background-color: white;
 }
 #top-header {
@@ -127,13 +127,37 @@ nav li {
 }
 
 @media screen and (min-width: 600px) {
+
   body {
     background-image: url("/images/site/small_check.jpg");
+    background-size: cover; 
   }
-  .wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    border: solid 3px blueviolet;
+
+  #wrapper {
+    width: 60%;
+    margin: 0 auto; 
+    background-color: white;
+    border: 3px solid aqua;
     border-radius: 12px;
+    padding: 20px;
   }
+
+  .auto-description {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.upgrades {
+  order: 1;
+  flex: 1;
+}
+
+.auto-reviwes {
+  order: 2;
+  flex: 1;
+}
+
+
 }
