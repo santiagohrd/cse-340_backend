@@ -142,6 +142,31 @@ nav li {
   box-sizing: border-box;
   text-align: center;
 }
+
+/* Style details page */
+.main-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-image-s img{
+  width: 100%;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.detail {
+  padding: 0.2rem;
+}
+
+.text-details {
+  box-sizing: border-box;
+  border: 2px solid #231123;
+  background: #b4c8d7;
+}
+
 @media screen and (min-width: 600px) {
 
   body {
@@ -175,5 +200,8 @@ nav li {
   flex: 1;
 }
 
-
+.main-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
 }
