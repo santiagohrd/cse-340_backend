@@ -14,6 +14,10 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
+const bodyParser = require("body-parser")
+
+
 const utilities = require("./utilities/") 
 const errorRoute = require("./routes/errorRoute")
 
@@ -38,6 +42,9 @@ app.use(function(req, res, next){
   next()
 })
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -53,6 +60,9 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
+
+// Account route
+app.use("/account", accountRoute)
 
 // Error route
 app.use("/", errorRoute);

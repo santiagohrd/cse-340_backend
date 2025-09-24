@@ -1,0 +1,38 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Send flash message -->
+<%- messages() %>
+
+<!-- Display validation errors -->
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }) %>
+    </ul>
+    <% } %>
+
+<!-- Registration form -->
+<form action="/account/register" id="reg-form" method="post">
+    <p>All fields are required</p>
+    <label>First Name: <span class="asterisk"></span> <input type="text" name="account_firstname" autocomplete="given-name" title="User first name" required></label>
+    <label>Last Name: <span class="asterisk"></span> <input type="text" name="account_lastname" autocomplete="family-name" title="User last name" required></label>
+    <label>Email: <input type="email" name="account_email" autocomplete="email" title="user email" required></label>
+    <div class="requirements">
+        <p>Password must: </p>
+        <ul class="requirement-list">
+            <li class="requirement-item">Be at least 12 characters long</li>
+            <li class="requirement-item">Contain at least one capital letter</li>
+            <li class="requirement-item">Contain at least number</li>
+            <li class="requirement-item">Contain at least one special character</li>
+        </ul>
+    </div>
+    <label>Password: <input type="password" name="account_password" autocomplete="current-password" title="user password" class="pswd" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"></label>
+    <label class="show-hide-pswd"><input type="checkbox" name="pswd-check" id="pswd-check">Show password</label>
+    <input type="submit" id="submit" value="Sign up">
+    <p class="reg">Already have an account? <a href="/account/login">Sign in</a></p>
+</form>

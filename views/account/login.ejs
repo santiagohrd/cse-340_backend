@@ -1,0 +1,24 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %>
+
+<form action="" id="login-form" method="get">
+    <label>Email: <input type="email" name="account_name" autocomplete="email" title="user email" required></label>
+    <div class="requirements">
+        <p>Password must: </p>
+        <ul class="requirement-list">
+            <li class="requirement-item">Be at least 12 characters long</li>
+            <li class="requirement-item">Contain at least one capital letter</li>
+            <li class="requirement-item">Contain at least number</li>
+            <li class="requirement-item">Contain at least one special character</li>
+        </ul>
+    </div>
+    <label>Password: <input type="password" name="account_password" autocomplete="current-password" title="user password" class="pswd" required></label>
+    <label class="show-hide-pswd"><input type="checkbox" name="pswd-check" id="pswd-check">Show password</label>
+    <input type="submit" id="submit" value="Sign in">
+    <p class="reg">No account? <a href="/account/register">Sign up</a></p>
+</form>
