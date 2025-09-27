@@ -6,7 +6,15 @@
 
 <%- messages() %>
 
-<form action="" id="login-form" method="get">
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <% }); %>
+    </ul>
+    <% } %>
+
+<form action="/account/login" id="login-form" method="post">
     <label>Email: <input type="email" name="account_name" autocomplete="email" title="user email" required></label>
     <div class="requirements">
         <p>Password must: </p>

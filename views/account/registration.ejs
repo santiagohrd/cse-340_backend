@@ -19,9 +19,9 @@
 <!-- Registration form -->
 <form action="/account/register" id="reg-form" method="post">
     <p>All fields are required</p>
-    <label>First Name: <span class="asterisk"></span> <input type="text" name="account_firstname" autocomplete="given-name" title="User first name" required></label>
-    <label>Last Name: <span class="asterisk"></span> <input type="text" name="account_lastname" autocomplete="family-name" title="User last name" required></label>
-    <label>Email: <input type="email" name="account_email" autocomplete="email" title="user email" required></label>
+    <label>First Name: <span class="asterisk"></span> <input type="text" name="account_firstname" autocomplete="given-name" title="User first name" required value="<%= locals.account_firstname %>"></label>
+    <label>Last Name: <span class="asterisk"></span> <input type="text" name="account_lastname" autocomplete="family-name" title="User last name" required value="<%= locals.account_lastname %>"></label>
+    <label>Email: <input type="email" name="account_email" autocomplete="email" title="user email" required value="<%= locals.account_email %>"></label>
     <div class="requirements">
         <p>Password must: </p>
         <ul class="requirement-list">
