@@ -13,9 +13,13 @@ router.get("/register", utilities.handleErrors(accountController.buildRegistrati
 // Process the login attempt
 router.post(
   "/login",
-  (req, res) => {
-    res.status(200).send('login process')
-  }
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(
+    (req, res) => {
+      res.status(200).send('login process')
+    }
+  )
 )
 
 // Route to submit registration form

@@ -1,0 +1,35 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Send flash message -->
+<%- messages() %>
+
+<!-- Display validation errors -->
+<% if (errors) { %>
+    <% let filteredErrors = errors.array().filter(error => error.msg !== "Invalid value"); %>
+    <% if (filteredErrors.length > 0) { %>
+        <ul class="notice">
+            <% filteredErrors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }); %>
+        </ul>
+    <% } %>
+<% } %>
+
+<form action="/inv/add-classification" id="add-classification" method="post">
+    <label>
+        CLASSIFICATION NAME
+        <input
+        type="text"
+        name="classification_name"
+        required
+        value="<%= locals.classification_name %>"
+        pattern="[0-9a-zA-Z]+"
+        />
+    </label>
+    <span class="fine-print">Required. Cannot contain spaces or special characters.</span>
+    <input type="submit" value="ADD" />
+</form>
