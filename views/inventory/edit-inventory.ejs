@@ -1,0 +1,42 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Send flash message -->
+<%- messages() %>
+
+<!-- Display validation errors while filtering out redundant "Invalid value" code-->
+<% if (errors) { %>
+    <% let filteredErrors = errors.array().filter(error => error.msg !== "Invalid value"); %>
+    <% if (filteredErrors.length > 0) { %>
+        <ul class="notice">
+            <% filteredErrors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }); %>
+        </ul>
+    <% } %>
+<% } %>
+
+<!-- New inventory form -->
+ <form action="/inv/edit-inventory" id="edit-inventory" method="post">
+    <p>All fields are required</p>
+    <label>Classification: <%- classificationList %></label>
+    <label>Inventory make: <input type="text" name="inv_make" title="Inventory Make" required value="<%= locals.inv_make %>"></label>
+    <label>Inventory model: <input type="text" name="inv_model" title="Inventory model" required value="<%= locals.inv_model %>"></label>
+    <label>Inventory year (numbers only): <input type="text" name="inv_year" title="Inventory year" required pattern="\d{4}" placeholder="****" value="<%= locals.inv_year %>"></label>
+    <label>Inventory description: <textarea name="inv_description" title="Inventory description" required><%= locals.inv_description %></textarea></label>
+    <label>Inventory image (enter valid path): <input type="text" name="inv_image" title="Inventory image" required value="<%= locals.inv_image%>"></label>
+    <label>Inventory thumbnail (enter valid path): <input type="text" name="inv_thumbnail" title="Inventory thumbnail" required value="<%= locals.inv_thumbnail%>"></label>
+    <label>Inventory price (numbers only): <input type="text" name="inv_price" title="Inventory price" required pattern="^\d+$" value="<%= locals.inv_price%>"></label>
+    <label>Inventory miles (numbers only): <input type="text" name="inv_miles" title="Inventory miles" required pattern="^\d+$" value="<%= locals.inv_miles%>"></label>
+    <label>Inventory color: <input type="text" name="inv_color" title="Inventory color" required value="<%= locals.inv_color%>"></label>
+    <input type="submit" id="submit" value="Update vehicle" disabled>
+    <input type="hidden" name="inv_id"
+    
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+ </form>
+
+ <script src="../../js/inv-update.js"></script>

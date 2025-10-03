@@ -1,0 +1,18 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %>
+
+<div id="account-mgt">
+    <h2>Welcome <%= account_firstname %> </h2>
+    <h2>You're logged in!</h2>
+    <p><a href="/account/update/<%= locals.account_id %>">Edit account information</a></p>
+
+    <% if (account_type !== "Client") { %>
+        <h3>Inventory management</h3>
+        <p>Click <a href="/inv" title="Manage inventory">here</a> to manage inventory</p>
+    <% } %>
+</div>

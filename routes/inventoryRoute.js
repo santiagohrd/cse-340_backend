@@ -37,6 +37,17 @@ router.post(
     utilities.handleErrors(invController.addNewInventory),
 );
 
+//Route to fetch inventory data by classification id
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+
+//Route to edit inventory entry
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventory));
+
+//Route to submit updated form
+router.post("/edit-inventory",
+    regValidate.inventoryRules(),
+    regValidate.checkUpdateData, 
+    utilities.handleErrors(invController.updateInventory))
 
 
 module.exports = router;

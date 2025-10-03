@@ -16,8 +16,18 @@
     </ul>
     <% } %>
 
-<!-- Management links -->
  <div class="manage-inv">
     <a href="/inv/add-classification">Add new classification</a>
     <a href="/inv/add-inventory">Add new inventory</a>
+
+    <h2>Manage Inventory</h2>
+    <p>Select inventory classification to view</p>
+
+    <%- classificationSelect %>
+
+    <table id="inventoryDisplay"></table>
+
+    <noscript>JavaScript must be enable to use this page.</noscript>
  </div>
+
+<script src="../../js/inventory.js"></script>
