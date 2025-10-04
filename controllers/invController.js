@@ -151,7 +151,7 @@ invCont.getInventoryJSON = async (req, res, next) => {
   }
 }
 
-//Edit inventory view
+//Deliver edit inventory view
 invCont.editInventory = async function (req, res, next) {
   let nav = await utilities.getNav();
   const inventoryId = parseInt(req.params.inv_id);
@@ -222,6 +222,56 @@ if (updateResult) {
       inv_miles,
       inv_color,
       classification_id
+    })
+  }
+}
+
+// Deliver Delete inventory VIEW
+invCont.confirmDelete = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const inventoryId = parseInt(req.params.inv_id);
+  const result = await invModel.getInventoryByInvId(inventoryId);
+  const itemData = result[0];
+  const name = `${itemData.inv_make} ${itemData.inv_model}`
+  res.render("./inventory/delete-confirm", {
+    title: `Delete ${name}?`, 
+    nav,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_price: itemData.inv_price,
+  })
+}
+
+//Delete inventory data
+invCont.deleteInventory = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const { inv_id, inv_make, inv_model, inv_year, inv_price } = req.body;
+  const parsedInv = parseInt(inv_id);
+
+  const deleteResult = await invModel.deleteInventory(
+    parsedInv
+  )
+
+  if (deleteResult) {
+    req.flash("notice", `The vehicle was successfully deleted.`)
+    res.redirect("/inv/")
+  } else {
+    const itemName = deleteResult.inv_make + " " + deleteResult.inv_model
+    req.flash(
+      "error",
+      `Sorry, the delete failed.`
+    )
+    res.status(501).render("inventory/delete-confirm", {
+      title: `Delete ${itemName}?`,
+      nav,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price,
     })
   }
 }
