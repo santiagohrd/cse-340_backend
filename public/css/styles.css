@@ -310,6 +310,52 @@ nav a:focus {
   background: #382039;
 }
 
+/* Style management page */
+.manage-inv {
+  margin: 1rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.manage-inv a {
+  border-radius: 10%;
+  background: whitesmoke;
+  color: #231123;
+  height: 44px;
+  width: 250px;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.manage-inv a:hover {
+  background: #b4c8d7;
+  color: #231123;
+}
+
+
+/* Style table */
+td > a.modify, td > a.delete {
+  padding: 0.5rem 0.5rem;
+}
+
+tr {
+  height: 44px;
+}
+
+/* Style account management page */
+#account-mgt {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1rem auto;
+  justify-content: center;
+  align-items: center;
+}
 
 @media screen and (min-width: 600px) {
 
@@ -345,7 +391,7 @@ nav a:focus {
 }
 
 /* Style login/registration form */
-#login-form, #reg-form {
+#login-form, #reg-form #add-classification, #add-inventory, #edit-inventory, #delete-inventory, #details-update-form, #password-update-form {
   margin: 1rem auto;
   max-width: 300px;
   display: flex;

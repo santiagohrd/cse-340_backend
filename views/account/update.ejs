@@ -1,0 +1,70 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %><% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<!-- Send flash message -->
+<%- messages() %>
+
+<!-- Account details update form -->
+<form action="/account/details-update" id="details-update-form" method="post">
+    <p>All fields are required</p>
+    <label>First Name: <input type="text" name="account_firstname" autocomplete="given-name" title="User first name" required value="<%= locals.account_firstname %>"></label>
+    <label>Last Name: <input type="text" name="account_lastname" autocomplete="family-name" title="User last name" required value="<%= locals.account_lastname %>"></label>
+    <label>Email: <input type="email" name="account_email" autocomplete="email" title="user email" required value="<%= locals.account_email %>"></label>
+    <input type="submit" class="submit" value="Update details">
+    <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+</form>
+
+<!-- Change password form -->
+<form action="/account/password-update" id="password-update-form" method="post">
+    <p>By entering this password, you are changing your old password to this</p>
+    <label>Enter New Password: <input type="password" name="account_password" autocomplete="current-password" title="user password" class="pswd" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"></label>
+    <label class="show-hide-pswd"><input type="checkbox" name="pswd-check" id="pswd-check">Show password</label>
+    <div class="requirements">
+        <p>Password must: </p>
+        <ul class="requirement-list">
+            <li class="requirement-item">Be at least 12 characters long</li>
+            <li class="requirement-item">Contain at least one capital letter</li>
+            <li class="requirement-item">Contain at least number</li>
+            <li class="requirement-item">Contain at least one special character</li>
+        </ul>
+    </div>
+    <input type="submit" class="submit" value="Change Password">
+    <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+</form>
+
+<!-- Account details update form -->
+<form action="/account/details-update" id="details-update-form" method="post">
+    <p>All fields are required</p>
+    <label>First Name: <input type="text" name="account_firstname" autocomplete="given-name" title="User first name" required value="<%= locals.account_firstname %>"></label>
+    <label>Last Name: <input type="text" name="account_lastname" autocomplete="family-name" title="User last name" required value="<%= locals.account_lastname %>"></label>
+    <label>Email: <input type="email" name="account_email" autocomplete="email" title="user email" required value="<%= locals.account_email %>"></label>
+    <input type="submit" class="submit" value="Update details">
+    <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+</form>
+
+<!-- Change password form -->
+<form action="/account/password-update" id="password-update-form" method="post">
+    <p>By entering this password, you are changing your old password to this</p>
+    <label>Enter New Password: <input type="password" name="account_password" autocomplete="current-password" title="user password" class="pswd" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"></label>
+    <label class="show-hide-pswd"><input type="checkbox" name="pswd-check" id="pswd-check">Show password</label>
+    <div class="requirements">
+        <p>Password must: </p>
+        <ul class="requirement-list">
+            <li class="requirement-item">Be at least 12 characters long</li>
+            <li class="requirement-item">Contain at least one capital letter</li>
+            <li class="requirement-item">Contain at least number</li>
+            <li class="requirement-item">Contain at least one special character</li>
+        </ul>
+    </div>
+    <input type="submit" class="submit" value="Change Password">
+    <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+</form>

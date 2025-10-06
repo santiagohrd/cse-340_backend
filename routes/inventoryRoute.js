@@ -13,46 +13,49 @@ router.get("/type/:classificationId",
 router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId));
 
 //Route to add new classification and inventory item
-router.get("/", utilities.handleErrors(invController.buildManagementPage));
+router.get("/", utilities.checkAccess, utilities.handleErrors(invController.buildManagementPage));
 
 //Route to add new classification
-router.get("/add-classification", utilities.handleErrors(invController.deliverAddClassification));
+router.get("/add-classification", utilities.checkAccess, utilities.handleErrors(invController.deliverAddClassification));
 
 //Post new classification data
 router.post(
     "/add-classification",
+    utilities.checkAccess,
     regValidate.classificationRules(),
     regValidate.checkClassificationData,
     utilities.handleErrors(invController.addNewClassification)
 );
 
 // Route to add new inventory
-router.get("/add-inventory", utilities.handleErrors(invController.deliverAddInventory));
+router.get("/add-inventory", utilities.checkAccess, utilities.handleErrors(invController.deliverAddInventory));
 
 //Post new inventory data
 router.post(
     "/add-inventory",
+    utilities.checkAccess,
     regValidate.inventoryRules(),
     regValidate.checkInventoryData,
     utilities.handleErrors(invController.addNewInventory),
 );
 
 //Route to fetch inventory data by classification id
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+router.get("/getInventory/:classification_id", utilities.checkAccess, utilities.handleErrors(invController.getInventoryJSON));
 
 //Route to edit inventory entry
-router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventory));
+router.get("/edit/:inv_id", utilities.checkAccess, utilities.handleErrors(invController.editInventory));
 
 //Route to submit updated form
 router.post("/edit-inventory",
+    utilities.checkAccess,
     regValidate.inventoryRules(),
     regValidate.checkUpdateData, 
     utilities.handleErrors(invController.updateInventory))
 
 //Route to delete view
-router.get("/delete/:inv_id", utilities.handleErrors(invController.confirmDelete));
+router.get("/delete/:inv_id", utilities.checkAccess, utilities.handleErrors(invController.confirmDelete));
 
 //Route to delete inventory
-router.post("/delete-inventory", utilities.handleErrors(invController.deleteInventory))
+router.post("/delete-inventory", utilities.checkAccess, utilities.handleErrors(invController.deleteInventory))
 
 module.exports = router;

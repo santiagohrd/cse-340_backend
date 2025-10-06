@@ -142,4 +142,19 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+/* ****************************************
+ *  Limit access based on type of account
+ * ************************************ */
+Util.checkAccess = (req, res, next) =>  {
+  const user = res.locals.accountData;
+  if (user && user.account_type !== 'Client' && res.locals.loggedin) {
+    console.log(user)
+    next()
+  } else {
+    req.flash("")
+    req.flash("notice", "You do not have access to the requested page")
+    return res.redirect("/account/login")
+  }
+}
+
 module.exports = Util

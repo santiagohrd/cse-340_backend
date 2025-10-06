@@ -2,6 +2,7 @@ const utilities = require("../utilities")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const { parse } = require("dotenv");
 require("dotenv").config()
 
 /* ****************************************
@@ -135,4 +136,103 @@ async function accountLogin(req, res) {
     }
 }
 
-module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, deliverAccountManagement }
+/* ****************************************
+ *  Deliver account update view
+ * ************************************ */
+async function buildAccountUpdate(req, res) {
+    let nav = await utilities.getNav();
+    const accountId = parseInt(req.params.accountId);
+    console.log(req.params.account_id);
+    const accountInfo = await accountModel.getAccountById(accountId);
+    res.render("account/update", {
+        title: "Update Account Information",
+        nav,
+        errors: null,
+        account_id: accountInfo.account_id,
+        account_firstname: accountInfo.account_firstname,
+        account_lastname: accountInfo.account_lastname,
+        account_email: accountInfo.account_email,
+    })
+}
+
+/* ****************************************
+ *  Process personal details update
+ * ************************************ */
+async function updatePersonal(req, res) {
+    let nav = await utilities.getNav();
+    const { account_firstname, account_lastname, account_email, account_id } = req.body;
+
+    const updateResult = await accountModel.updatePersonal(
+        account_firstname,
+        account_lastname,
+        account_email,
+        account_id
+    )
+
+    if (updateResult) {
+        const currentName = `${account_firstname} ${account_lastname}`
+        const currentEmail = `${account_email}`
+        req.flash("notice", `Congratulations ${currentName} with email - ${currentEmail}. Your details have been updated successfully.`)
+        res.redirect("/account/")
+    } else {
+        req.flash(
+            "error",
+            `Sorry, the update failed. Please try again`
+        )
+        res.status(501).render("account/update", {
+            title: "Update Account Information",
+            nav,
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id,
+          })
+    }
+}
+
+/* ****************************************
+ *  Process password change update
+ * ************************************ */
+async function updatePassword(req, res) {
+    let nav = await utilities.getNav();
+    const { account_password, account_id } = req.body;
+
+    let hashedPassword;
+    try {
+        hashedPassword = await bcrypt.hashSync(account_password, 10)
+    } catch (error) {
+        req.flash("notice", 'Sorry, there was an error changing your password.')
+        res.status(500).render("account/update", {
+            title: "Update Account Information",
+            nav,
+            errors: null,
+        })
+    }
+
+    const updatePassword = await accountModel.updatePassword(
+        hashedPassword,
+        account_id
+    )
+
+    if (updatePassword) {
+        req.flash("notice", `Congratulations, your password was changed successfully`)
+        res.redirect("/account/")
+    } else {
+        req.flash(
+            "error",
+            `Sorry, the process failed. Please try again`
+        )
+        res.status(501).render("account/update", {
+            title: "Update Account Information",
+            nav,
+            account_id,
+          })
+    }
+}
+
+async function logout (req, res) {
+    res.clearCookie("jwt");
+    res.redirect("/")
+}
+
+module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, deliverAccountManagement, buildAccountUpdate, updatePersonal, updatePassword, logout }
