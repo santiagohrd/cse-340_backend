@@ -17,7 +17,7 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
-
+const searchRoute = require("./routes/searchRoute")
 const utilities = require("./utilities/") 
 const errorRoute = require("./routes/errorRoute")
 
@@ -60,6 +60,9 @@ app.set("layout", "./layouts/layout") // not at views root
  *************************/
 app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
+
+// Search route
+app.use("/search", searchRoute)
 
 // Inventory routes
 app.use("/inv", inventoryRoute)

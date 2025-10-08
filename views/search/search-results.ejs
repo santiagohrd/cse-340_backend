@@ -1,0 +1,20 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <% let filteredErrors = errors.array().filter(error => error.msg !== "Invalid value"); %>
+    <% if (filteredErrors.length > 0) { %>
+        <ul class="notice">
+            <% filteredErrors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }); %>
+        </ul>
+    <% } %>
+<% } %>
+
+<%- builtResults %>

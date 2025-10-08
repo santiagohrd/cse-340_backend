@@ -157,4 +157,29 @@ Util.checkAccess = (req, res, next) =>  {
   }
 }
 
+/* ****************************************
+ *  Build search results view
+ * ************************************ */
+Util.buildSearchResultsHTML = (results) => {
+  if (!results || results.length === 0) {
+    return `<h3 class="no-results">No inventory item exists by this name. Please check the spelling and try again.</h3>`;
+  }
+
+  let html = '<section class="search-results">';
+  
+  results.forEach(item => {
+    html += `
+      <a href="/inv/detail/${item.inv_id}" class="result-link">
+        <div class="result-card">
+          <img src="${item.inv_thumbnail}" alt="${item.inv_make} ${item.inv_model}" class="thumbnail" loading="lazy">
+          <p><strong>${item.inv_year}</strong> ${item.inv_make} ${item.inv_model}</p>
+        </div>
+      </a>
+    `;
+  });
+
+  html += '</section>';
+  return html;
+}
+
 module.exports = Util
